@@ -11,7 +11,7 @@ from aiogram.utils import executor
 from aiogram.types import InputFile, Message
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-API_TOKEN = '6266891164:AAEVzVFDe2bhrMALVn7byHcZ5yKFxoLRLv4' # токен бота
+API_TOKEN = '6192900694:AAGh8mvOwOyrT6x4M0hFv5CX9ilNXmloK84' # токен бота
 bot = Bot(token=API_TOKEN, parse_mode=ParseMode.HTML)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -24,8 +24,8 @@ async def cmd_start(message: types.Message):
     #info_button = types.KeyboardButton('Информация')
     info_button = types.KeyboardButton('Выберите язык')
     keyboard_markup.add(info_button)
-    await message.answer('Этот бот - гид для НТШ, с помощью него ты можешь разобраться куда идти.\n'
-                         'Сайт НТШ - <a href ="https://novtechschool.ru/?ysclid=lg7tljhcuc753613716">клик</a>.', reply_markup=keyboard_markup, parse_mode='HTML')
+    await message.answer('Бот гид НТШ\n'
+                         'Сайт НТШ - <a href ="https://novtechschool.ru/?ysclid=lg7tljhcuc753613716">перейти</a>.', reply_markup=keyboard_markup, parse_mode='HTML')
 
 @dp.message_handler(Text(equals="Выберите язык"))
 async def choose_lang(message: types.Message):
@@ -41,23 +41,23 @@ async def choose_lang(message: types.Message):
 async def if_russian(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     back = types.KeyboardButton('Смена языка')
-    info_key = types.KeyboardButton('Навигация')
-    adres_key = types.KeyboardButton('Адрес')
+    info_key = types.KeyboardButton('Перемещение')
+    adres_key = types.KeyboardButton('Место положение')
     keyboard_markup.add(info_key,adres_key, back)
-    await message.answer('Выбери действие:',reply_markup=keyboard_markup)
+    await message.answer('Представленные опции:',reply_markup=keyboard_markup)
 
 
 @dp.message_handler(Text(equals="English"))
 async def if_russian(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    back = types.KeyboardButton('Changing the language')
-    info_key = types.KeyboardButton('Navigation')
+    back = types.KeyboardButton('Choose the language')
+    info_key = types.KeyboardButton('Movements')
     adres_key = types.KeyboardButton('Address')
     keyboard_markup.add(info_key,adres_key, back)
     await message.answer('Choose:',reply_markup=keyboard_markup)
         
 
-@dp.message_handler(Text(equals="Changing the language"))
+@dp.message_handler(Text(equals="Choose the language"))
 async def choose_lang_back(message: types.Message):
 
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -78,7 +78,7 @@ async def choose_lang_back(message: types.Message):
     await message.answer('Выбери язык:', reply_markup=keyboard_markup)
 
 
-@dp.message_handler(Text(equals="Адрес"))
+@dp.message_handler(Text(equals="Место положение"))
 async def addres(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     await message.answer('НТШ находится по адресу: Великая ул., 18А, Софийская сторона, Великий Новгород\n <a href ="https://yandex.ru/maps/org/novgorodskaya_tekhnicheskaya_shkola/245430995911/?ll=31.278521%2C58.538530&z=17.03">Смотреть на Яндекс Картах</a>', parse_mode='HTML')
@@ -88,25 +88,25 @@ async def addres(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     await message.answer('NTSH is located at: Velikaya Street, 18A, Sophia Side, Veliky Novgorod <a href ="https://yandex.ru/maps/org/novgorodskaya_tekhnicheskaya_shkola/245430995911/?ll=31.278521%2C58.538530&z=17.03">View on Yandex Maps</a>', parse_mode='HTML')
 
-@dp.message_handler(Text(equals="Навигация"))
+@dp.message_handler(Text(equals="Перемещение"))
 async def navigation(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    one_days = types.KeyboardButton('Мероприятия')
-    toulets = types.KeyboardButton('Расположения туалетов')
-    quiets = types.KeyboardButton('Выходы из здания')
-    dop_veshi = types.KeyboardButton('Сервисные помещения')
+    one_days = types.KeyboardButton('Основные места')
+    toulets = types.KeyboardButton('Туалеты')
+    quiets = types.KeyboardButton('Выходы')
+    dop_veshi = types.KeyboardButton('Сервисы')
     back = types.KeyboardButton('Смена языка')
     keyboard_markup.add(one_days, toulets, quiets, dop_veshi, back)
-    await message.answer('Выбери категорию:',reply_markup=keyboard_markup)
+    await message.answer('ч:',reply_markup=keyboard_markup)
 
-@dp.message_handler(Text(equals="Navigation"))
+@dp.message_handler(Text(equals="Movements"))
 async def navigation(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     one_days = types.KeyboardButton('Events')
-    toulets = types.KeyboardButton('Toilet locations')
-    quiets = types.KeyboardButton('Building exits')
+    toulets = types.KeyboardButton('bathrooms')
+    quiets = types.KeyboardButton('exits')
     dop_veshi = types.KeyboardButton('Service areas')
-    back = types.KeyboardButton('Changing the language')
+    back = types.KeyboardButton('Choose the languages')
     keyboard_markup.add(one_days, toulets, quiets, dop_veshi, back)
     await message.answer('Choose:',reply_markup=keyboard_markup)
 
@@ -114,7 +114,7 @@ async def navigation(message: types.Message):
 
 
 
-@dp.message_handler(Text(equals="Мероприятия"))
+@dp.message_handler(Text(equals="Основные места"))
 async def info_of_floors(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     pish= types.KeyboardButton('ПИШ')
@@ -137,7 +137,7 @@ async def info_of_floors(message: types.Message):
     residents_intc = types.KeyboardButton('INTC Residents')
     point_of_boil = types.KeyboardButton('Boiling Point')
     #publish_zone = types.KeyboardButton('Выставочная зона')
-    back = types.KeyboardButton('Changing the language')
+    back = types.KeyboardButton('Choose the languages')
     keyboard_markup.add(pish, school_21, phismath_licey, residents_intc, point_of_boil, back)
     await message.answer('Choose:', reply_markup=keyboard_markup)
 
@@ -208,7 +208,7 @@ async def send_image_5(message: types.Message):
     await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption='Finding the Boiling Point in the Building Layout on the Ground Floor')  
 
 
-@dp.message_handler(Text(equals="Расположения туалетов"))
+@dp.message_handler(Text(equals="Туалеты"))
 async def send_image_7(message: types.Message):
     photo = InputFile('2 этаж/Туалет.png')
     photo_1 = InputFile('1 этаж/Туалет.png')
@@ -224,19 +224,19 @@ async def send_image_7(message: types.Message):
 
 
 
-@dp.message_handler(Text(equals="Выходы из здания"))
+@dp.message_handler(Text(equals="Выходы"))
 async def send_image_8(message: types.Message):
     photo_1 = InputFile('1 этаж/Выход-Вход.png')
     await bot.send_photo(chat_id=message.from_user.id, photo=photo_1, caption='Нахождение выхода/входа в планировке здания на первом этаже')
 
-@dp.message_handler(Text(equals="Building exits"))
+@dp.message_handler(Text(equals="exits"))
 async def send_image_8(message: types.Message):
     photo_1 = InputFile('1 этаж/Выход-Вход.png')
     await bot.send_photo(chat_id=message.from_user.id, photo=photo_1, caption='Finding an exit/entrance in the building layout on the first floor')
 
 
 
-@dp.message_handler(Text(equals="Сервисные помещения"))
+@dp.message_handler(Text(equals="Сервисы"))
 async def navigation(message: types.Message):
     keyboard_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     hall = types.KeyboardButton('Холл')
@@ -244,7 +244,7 @@ async def navigation(message: types.Message):
     halerelya = types.KeyboardButton('Галерея')
     amphtheatre = types.KeyboardButton('Амфитеатр')
     zal_trans = types.KeyboardButton('Зал-трансформер')
-    back = types.KeyboardButton('Changing the language')
+    back = types.KeyboardButton('Choose the languages')
     keyboard_markup.add(hall,voice_hall, halerelya, amphtheatre, zal_trans, back)
     await message.answer('Choose:',reply_markup=keyboard_markup)
 
@@ -256,7 +256,7 @@ async def navigation(message: types.Message):
     halerelya = types.KeyboardButton('Gallery')
     amphtheatre = types.KeyboardButton('Amphitheater')
     zal_trans = types.KeyboardButton('Transformer Room')
-    back = types.KeyboardButton('Changing the language')
+    back = types.KeyboardButton('Choose the languages')
     keyboard_markup.add(hall,voice_hall, halerelya, amphtheatre, zal_trans, back)
     await message.answer('Choose:',reply_markup=keyboard_markup)
 
